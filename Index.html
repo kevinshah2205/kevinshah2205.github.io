@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin Shah | Professional Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void-bg: #0c0a09; 
+            --rust-panel: #1c1411;
+            --copper-border: #8c3a21;
+            --copper-glow: rgba(140, 58, 33, 0.4);
+            --alien-cyan: #00f0ff;
+            --alien-glow: rgba(0, 240, 255, 0.3);
+            --text-main: #d6d3d1;
+            --text-muted: #78716c;
+        }
+
+        body {
+            background-color: var(--void-bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(140, 58, 33, 0.1) 0%, transparent 50%),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
+            scroll-behavior: smooth;
+        }
+
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        .clip-corner { clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px); }
+        .clip-corner-sm { clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
+
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .tech-panel {
+            background-color: var(--rust-panel);
+            border: 1px solid var(--copper-border);
+            position: relative;
+            transition: all 0.4s ease;
+        }
+        
+        .tech-panel:hover {
+            border-color: var(--alien-cyan);
+            box-shadow: 0 0 15px var(--alien-glow), inset 0 0 10px rgba(0, 240, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--void-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--copper-border); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--alien-cyan); }
+
+        .cyan-text { color: var(--alien-cyan); text-shadow: 0 0 8px var(--alien-glow); }
+
+        /* Artifact Styles */
+        .artifact-btn {
+            background: #1c1411; border: 1px solid #00f0ff; color: #00f0ff;
+            transition: all 0.3s ease; padding: 6px 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; cursor: pointer;
+        }
+        .artifact-btn:hover { background: #00f0ff; color: #0c0a09; box-shadow: 0 0 15px rgba(0, 240, 255, 0.5); }
+
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 16px; width: 8px; background: #00f0ff; cursor: pointer; margin-top: -6px; box-shadow: 0 0 5px #00f0ff; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: #8c3a21; }
+
+        .wire { stroke: #8c3a21; stroke-width: 4; transition: stroke 0.3s, filter 0.3s; fill: none; }
+        .wire.active { stroke: #00f0ff; filter: drop-shadow(0 0 8px #00f0ff); }
+        .alu-core { fill: #1c1411; stroke: #8c3a21; stroke-width: 2; transition: all 0.3s; }
+        .alu-core.active { stroke: #00f0ff; filter: drop-shadow(0 0 12px rgba(0,240,255,0.4)); }
+        .svg-text { fill: #8c3a21; font-family: 'JetBrains Mono', monospace; font-size: 14px; transition: fill 0.3s; }
+        .active .svg-text { fill: #00f0ff; }
+        .svg-val { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: bold; opacity: 0.4; transition: opacity 0.3s; }
+        .active .svg-val { opacity: 1; }
+    </style>
+</head>
+<body class="selection:bg-[#00f0ff] selection:text-black">
+
+    <nav class="fixed top-0 w-full p-4 md:p-6 flex justify-between items-center z-40 bg-[#0c0a09]/90 backdrop-blur-md border-b border-[#8c3a21]/50">
+        <div class="font-mono text-xl font-bold cyan-text tracking-tighter cursor-default">KEVIN SHAH</div>
+        <div class="hidden lg:flex space-x-6 font-mono text-xs uppercase tracking-widest text-[#78716c]">
+            <a href="#home" class="hover:text-[#00f0ff] transition-colors duration-300">Home</a>
+            <a href="#about" class="hover:text-[#00f0ff] transition-colors duration-300">About</a>
+            <a href="#education" class="hover:text-[#00f0ff] transition-colors duration-300">Education</a>
+            <a href="#projects" class="hover:text-[#00f0ff] transition-colors duration-300">Projects</a>
+            <a href="#skills" class="hover:text-[#00f0ff] transition-colors duration-300">Skills</a>
+            <a href="#experience" class="hover:text-[#00f0ff] transition-colors duration-300">Experience</a>
+            <a href="#certifications" class="hover:text-[#00f0ff] transition-colors duration-300">Certifications</a>
+            <a href="#contact" class="hover:text-black hover:bg-[#00f0ff] px-3 py-1 border border-[#00f0ff] transition-all duration-300 clip-corner-sm text-[#00f0ff]">Contact</a>
+        </div>
+    </nav>
+
+    <div id="main-content">
+        
+        <section id="home" class="min-h-screen flex flex-col justify-center px-8 md:px-24 pt-20 border-b border-[#8c3a21]/30">
+            <div class="reveal relative z-10 w-full">
+                
+                <div class="text-xl md:text-2xl text-[#d6d3d1] font-medium mb-3 flex items-center gap-3">
+                    <span>👋</span> Welcome, I am
+                </div>
+                
+                <h1 class="text-6xl md:text-8xl font-black mb-8 tracking-tight uppercase leading-tight">
+                    <span class="text-white">Kevin</span> <span class="cyan-text decrypt-text" data-value="SHAH">SHAH</span>
+                </h1>
+                
+                <div class="text-lg md:text-xl text-[#d6d3d1] max-w-3xl font-light leading-relaxed mb-8 space-y-2">
+                    <p>Undergraduate Scholar • Electronics & Communication Engineering</p>
+                    <p class="text-[#78716c]">Pandit Deendayal Energy University, Gandhinagar</p>
+                </div>
+
+                <div class="flex flex-wrap gap-4 mb-12 font-mono text-xs md:text-sm">
+                    <div class="flex items-center gap-2 border border-[#8c3a21]/60 bg-[#1c1411]/80 px-5 py-2.5 rounded-full text-[#d6d3d1] shadow-sm">
+                        <svg class="w-4 h-4 text-[#00f0ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                        VLSI & RTL Design
+                    </div>
+                    <div class="flex items-center gap-2 border border-[#8c3a21]/60 bg-[#1c1411]/80 px-5 py-2.5 rounded-full text-[#d6d3d1] shadow-sm">
+                        <svg class="w-4 h-4 text-[#00f0ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Embedded Systems
+                    </div>
+                    <div class="flex items-center gap-2 border border-[#8c3a21]/60 bg-[#1c1411]/80 px-5 py-2.5 rounded-full text-[#d6d3d1] shadow-sm">
+                        <svg class="w-4 h-4 text-[#00f0ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        Python & Assembly
+                    </div>
+                    <div class="flex items-center gap-2 border border-[#8c3a21]/60 bg-[#1c1411]/80 px-5 py-2.5 rounded-full text-[#d6d3d1] shadow-sm">
+                        <svg class="w-4 h-4 text-[#00f0ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+                        MATLAB Tools
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-5">
+                    <a href="#experience" class="bg-[#00f0ff] text-[#0c0a09] font-bold font-mono px-8 py-3.5 rounded-md hover:bg-white hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all flex items-center gap-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        My Experience
+                    </a>
+                    <a href="#projects" class="border-2 border-[#8c3a21] text-[#d6d3d1] hover:border-[#00f0ff] hover:text-[#00f0ff] font-bold font-mono px-8 py-3.5 rounded-md transition-colors flex items-center gap-3 bg-[#1c1411]/50">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z"></path></svg>
+                        Projects
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="min-h-screen px-8 md:px-24 py-24 border-b border-[#8c3a21]/30 bg-[#0c0a09]/50 flex flex-col justify-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                
+                <div class="lg:col-span-5 reveal">
+                    <div class="font-mono text-xs text-[#00f0ff] uppercase tracking-widest mb-2">PERSONAL PROFILE</div>
+                    <h2 class="text-5xl md:text-6xl font-black text-white mb-4 tracking-tight">About Me</h2>
+                    <p class="text-[#78716c] text-lg mb-8">Insights into my technical background and what drives my engineering pursuits.</p>
+                    
+                    <div class="w-full max-w-[260px] aspect-[4/5] bg-gradient-to-br from-[#1c1411] to-[#0c0a09] border-2 border-[#8c3a21] relative flex items-center justify-center group overflow-hidden shadow-[0_0_30px_rgba(140,58,33,0.15)] clip-corner mx-auto lg:mx-0">
+                        <div class="absolute inset-0 bg-[#00f0ff] opacity-0 group-hover:opacity-5 transition-opacity duration-500"></div>
+                        <span class="text-6xl font-black text-[#8c3a21] group-hover:text-[#00f0ff] transition-colors duration-500 drop-shadow-lg">KS</span>
+                        </div>
+                </div>
+
+                <div class="lg:col-span-7 reveal" style="transition-delay: 0.2s;">
+                    <div class="text-[#d6d3d1] text-lg leading-relaxed space-y-6 mb-12">
+                        <p>I am a 21-year-old pre-final year student pursuing a Bachelor of Technology in Electronics and Communication Engineering at PDEU, Gandhinagar, maintaining a CGPA of 9.14. My core focus lies in the intricacies of VLSI logic, physical design, and creating efficient embedded hardware systems.</p>
+                        <p>To complement my technical endeavors, I stay active and curious. I am an avid football fan and player, enjoy diving into video games, and love traveling to explore new environments. Keeping a healthy balance fuels my problem-solving mindset.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 font-mono">
+                        <div>
+                            <div class="text-[#b85d33] text-xs font-bold tracking-widest mb-1 uppercase">Location</div>
+                            <div class="text-white text-sm">Vadodara, Gujarat</div>
+                        </div>
+                        <div>
+                            <div class="text-[#b85d33] text-xs font-bold tracking-widest mb-1 uppercase">Degree</div>
+                            <div class="text-white text-sm">B.Tech – ECE</div>
+                        </div>
+                        <div>
+                            <div class="text-[#b85d33] text-xs font-bold tracking-widest mb-1 uppercase">Email</div>
+                            <div class="text-white text-sm">kevinshah2205@gmail.com</div>
+                        </div>
+                        <div>
+                            <div class="text-[#b85d33] text-xs font-bold tracking-widest mb-1 uppercase">Interests</div>
+                            <div class="text-white text-sm">VLSI, Embedded Sys, IoT</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="education" class="min-h-screen px-8 md:px-24 py-24 border-b border-[#8c3a21]/30 flex flex-col justify-center">
+            <div class="w-full">
+                <div class="reveal mb-12">
+                    <div class="font-mono text-xs text-[#00f0ff] uppercase tracking-widest mb-2">ACADEMIC HISTORY</div>
+                    <h2 class="text-5xl md:text-6xl font-black text-white tracking-tight mb-4">Education</h2>
+                    <p class="text-[#78716c] text-lg">Tracing my formal academic and institutional background.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
+                    <div class="bg-[#1c1411] border border-[#8c3a21] border-t-4 border-t-[#00f0ff] p-8 relative flex flex-col justify-between group hover:shadow-[0_0_15px_rgba(0,240,255,0.15)] transition-shadow clip-corner-sm">
+                        <div>
+                            <div class="font-mono text-xs text-[#00f0ff] mb-4">2023 – 2027 (EXPECTED)</div>
+                            <h3 class="text-xl font-bold text-white mb-2">B.Tech – Electronics & Communication</h3>
+                            <p class="text-[#d6d3d1] text-sm leading-relaxed">Pandit Deendayal Energy University (PDEU), Gandhinagar</p>
+                        </div>
+                        <div class="mt-8 inline-block border border-[#00f0ff]/50 bg-[#00f0ff]/10 text-[#00f0ff] px-4 py-1.5 rounded-full text-xs font-mono w-max">
+                            CGPA: 9.14 (till Sem 5)
+                        </div>
+                    </div>
+
+                    <div class="bg-[#1c1411] border border-[#8c3a21] border-t-4 border-t-[#00f0ff] p-8 relative flex flex-col justify-between group hover:shadow-[0_0_15px_rgba(0,240,255,0.15)] transition-shadow clip-corner-sm" style="transition-delay: 0.1s;">
+                        <div>
+                            <div class="font-mono text-xs text-[#00f0ff] mb-4">2023</div>
+                            <h3 class="text-xl font-bold text-white mb-2">12th Standard – Senior Secondary</h3>
+                            <p class="text-[#d6d3d1] text-sm leading-relaxed">Bharatiya Vidya Bhavans School, Vadodara (CBSE)</p>
+                        </div>
+                        <div class="mt-8 inline-block border border-[#00f0ff]/50 bg-[#00f0ff]/10 text-[#00f0ff] px-4 py-1.5 rounded-full text-xs font-mono w-max">
+                            Score: 89.8%
+                        </div>
+                    </div>
+
+                    <div class="bg-[#1c1411] border border-[#8c3a21] border-t-4 border-t-[#00f0ff] p-8 relative flex flex-col justify-between group hover:shadow-[0_0_15px_rgba(0,240,255,0.15)] transition-shadow clip-corner-sm" style="transition-delay: 0.2s;">
+                        <div>
+                            <div class="font-mono text-xs text-[#00f0ff] mb-4">2021</div>
+                            <h3 class="text-xl font-bold text-white mb-2">10th Standard – Secondary</h3>
+                            <p class="text-[#d6d3d1] text-sm leading-relaxed">Bharatiya Vidya Bhavans School, Vadodara (CBSE)</p>
+                        </div>
+                        <div class="mt-8 inline-block border border-[#00f0ff]/50 bg-[#00f0ff]/10 text-[#00f0ff] px-4 py-1.5 rounded-full text-xs font-mono w-max">
+                            Score: 87.2%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="min-h-screen px-8 md:px-24 py-24 border-b border-[#8c3a21]/30 bg-[#0c0a09]/50 flex flex-col justify-center">
+            <div class="w-full">
+                <div class="reveal mb-12">
+                    <div class="font-mono text-xs text-[#00f0ff] uppercase tracking-widest mb-2">PORTFOLIO</div>
+                    <h2 class="text-5xl md:text-6xl font-black text-white tracking-tight">Projects</h2>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="tech-panel clip-corner p-8 reveal group cursor-pointer" onclick="openArtifact('subtractor')">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-bold text-white group-hover:cyan-text transition-colors">8-Bit Subtractor</h3>
+                            <span class="font-mono text-xs text-[#b85d33]">RTL to GDSII</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-[10px] font-mono border border-[#00f0ff]/50 bg-[#00f0ff]/10 text-[#00f0ff] px-2 py-1 rounded">Synopsys Tools</span>
+                            <span class="text-[10px] font-mono border border-[#00f0ff]/50 bg-[#00f0ff]/10 text-[#00f0ff] px-2 py-1 rounded">Verilog</span>
+                            <span class="text-[10px] font-mono border border-[#00f0ff]/50 bg-[#00f0ff]/10 text-[#00f0ff] px-2 py-1 rounded">TCL</span>
+                        </div>
+                        <p class="text-[#d6d3d1] text-sm mb-6 leading-relaxed">
+                            Designed an 8-bit subtractor using Verilog HDL and implemented the complete RTL to GDSII flow on Rocky Linux 8. Performed synthesis and physical design using Design Compiler and IC Compiler II with the SAED 32nm standard cell library.
+                        </p>
+                        <div class="bg-[#0c0a09] border border-[#8c3a21]/50 p-4 font-mono text-xs text-[#78716c] clip-corner-sm mt-auto hover:text-[#00f0ff] transition-colors">
+                            > Click to view Images & Simulation
+                        </div>
+                    </div>
+
+                    <div class="tech-panel clip-corner p-8 reveal group cursor-pointer" style="transition-delay: 0.1s;" onclick="openArtifact('traffic')">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-bold text-white group-hover:cyan-text transition-colors">Traffic Junction Controller</h3>
+                            <span class="font-mono text-xs text-[#b85d33]">Embedded Systems</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-[10px] font-mono border border-[#00f0ff]/50 bg-[#00f0ff]/10 text-[#00f0ff] px-2 py-1 rounded">Proteus</span>
+                            <span class="text-[10px] font-mono border border-[#00f0ff]/50 bg-[#00f0ff]/10 text-[#00f0ff] px-2 py-1 rounded">Computer Architecture</span>
+                            <span class="text-[10px] font-mono border border-[#00f0ff]/50 bg-[#00f0ff]/10 text-[#00f0ff] px-2 py-1 rounded">Assembly</span>
+                        </div>
+                        <p class="text-[#d6d3d1] text-sm mb-6 leading-relaxed">
+                            Designed an automated traffic management system using the 8086 Microcontroller and 8255 PPI interface. Implemented address/data demultiplexing using the 74HC373 latch and simulated the complete hardware circuit using Proteus.
+                        </p>
+                        <div class="bg-[#0c0a09] border border-[#8c3a21]/50 p-4 font-mono text-xs text-[#78716c] clip-corner-sm mt-auto hover:text-[#00f0ff] transition-colors">
+                            > Click to view Image & Simulation
+                        </div>
+                    </div>
+
+                    <div class="tech-panel clip-corner p-8 reveal group cursor-pointer" onclick="openArtifact('weather')">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-bold text-white group-hover:cyan-text transition-colors">AI Weather Station</h3>
+                            <span class="font-mono text-xs text-[#b85d33]">ESP32 / SENSORS</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-[10px] font-mono border border-[#00f0ff]/50 bg-[#00f0ff]/10 text-[#00f0ff] px-2 py-1 rounded">ESP32</span>
+                            <span class="text-[10px] font-mono border border-[#00f0ff]/50 bg-[#00f0ff]/10 text-[#00f0ff] px-2 py-1 rounded">I2C / ADC</span>
+                            <span class="text-[10px] font-mono border border-[#00f0ff]/50 bg-[#00f0ff]/10 text-[#00f0ff] px-2 py-1 rounded">AI Prediction</span>
+                        </div>
+                        <p class="text-[#d6d3d1] text-sm mb-6 leading-relaxed">
+                            Developing a wireless weather station using an ESP32 interfacing with SHT20 (Temp/Humidity), BMP280 (Pressure), GUVA-S12SD (UV), and APDS-9930 (Light) sensors. Transmits data via Wi-Fi/Bluetooth for AI-driven weather forecasting. <span class="text-[#b85d33] font-mono font-bold">[IN DEVELOPMENT]</span>
+                        </p>
+                        <div class="bg-[#0c0a09] border border-[#8c3a21]/50 p-4 font-mono text-xs text-[#78716c] clip-corner-sm mt-auto hover:text-[#00f0ff] transition-colors">
+                            > Click to view Image & Dashboard
+                        </div>
+                    </div>
+
+                    <div class="tech-panel clip-corner p-8 reveal group cursor-pointer" style="transition-delay: 0.1s;" onclick="openArtifact('drone')">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-bold text-white group-hover:cyan-text transition-colors">ESP32 Drone</h3>
+                            <span class="font-mono text-xs text-[#b85d33]">FLIGHT CONTROLLER</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-[10px] font-mono border border-[#00f0ff]/50 bg-[#00f0ff]/10 text-[#00f0ff] px-2 py-1 rounded">ESP32</span>
+                            <span class="text-[10px] font-mono border border-[#00f0ff]/50 bg-[#00f0ff]/10 text-[#00f0ff] px-2 py-1 rounded">PID Control</span>
+                            <span class="text-[10px] font-mono border border-[#00f0ff]/50 bg-[#00f0ff]/10 text-[#00f0ff] px-2 py-1 rounded">Sensor Fusion</span>
+                        </div>
+                        <p class="text-[#d6d3d1] text-sm mb-6 leading-relaxed">
+                            Building an autonomous drone utilizing the ESP32 as the core flight computer. Integrating GPS modules, gyroscopes, and motor drivers to process spatial telemetry and achieve stable flight dynamics. <span class="text-[#b85d33] font-mono font-bold">[IN DEVELOPMENT]</span>
+                        </p>
+                        <div class="bg-[#0c0a09] border border-[#8c3a21]/50 p-4 font-mono text-xs text-[#78716c] clip-corner-sm mt-auto hover:text-[#00f0ff] transition-colors">
+                            > Click to view IMU Simulation
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="min-h-screen px-8 md:px-24 py-24 border-b border-[#8c3a21]/30 flex flex-col justify-center">
+            <div class="w-full">
+                <div class="reveal mb-12">
+                    <div class="font-mono text-xs text-[#00f0ff] uppercase tracking-widest mb-2">TECHNICAL ARSENAL</div>
+                    <h2 class="text-5xl md:text-6xl font-black text-white tracking-tight">Skills & Tools</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal">
+                    
+                    <div class="tech-panel clip-corner-sm p-6 flex flex-col group">
+                        <div class="flex items-center gap-4 mb-6 border-b border-[#8c3a21]/50 pb-4">
+                            <div class="p-2 border border-[#8c3a21] bg-[#0c0a09] text-[#00f0ff] group-hover:shadow-[0_0_10px_rgba(0,240,255,0.4)] transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                            </div>
+                            <div>
+                                <div class="font-mono text-[10px] text-[#b85d33] tracking-widest">MOD-01</div>
+                                <h3 class="text-xl font-bold text-white group-hover:cyan-text transition-colors">EDA Tools</h3>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 font-mono text-xs">
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Synopsys Tools (VCS, DC, ICC2, PrimeTime)</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">OpenROAD / OpenLane</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Icarus Verilog</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Magic / Netgen</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">RISC-V Toolchain</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Verdi</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Proteus</span>
+                        </div>
+                    </div>
+
+                    <div class="tech-panel clip-corner-sm p-6 flex flex-col group" style="transition-delay: 0.1s;">
+                        <div class="flex items-center gap-4 mb-6 border-b border-[#8c3a21]/50 pb-4">
+                            <div class="p-2 border border-[#8c3a21] bg-[#0c0a09] text-[#00f0ff] group-hover:shadow-[0_0_10px_rgba(0,240,255,0.4)] transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            </div>
+                            <div>
+                                <div class="font-mono text-[10px] text-[#b85d33] tracking-widest">MOD-02</div>
+                                <h3 class="text-xl font-bold text-white group-hover:cyan-text transition-colors">Languages</h3>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 font-mono text-xs">
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Verilog HDL</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">C / C++</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Python</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">MATLAB</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Assembly (8086)</span>
+                        </div>
+                    </div>
+
+                    <div class="tech-panel clip-corner-sm p-6 flex flex-col group" style="transition-delay: 0.2s;">
+                        <div class="flex items-center gap-4 mb-6 border-b border-[#8c3a21]/50 pb-4">
+                            <div class="p-2 border border-[#8c3a21] bg-[#0c0a09] text-[#00f0ff] group-hover:shadow-[0_0_10px_rgba(0,240,255,0.4)] transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <div class="font-mono text-[10px] text-[#b85d33] tracking-widest">MOD-03</div>
+                                <h3 class="text-xl font-bold text-white group-hover:cyan-text transition-colors">Core Concepts</h3>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 font-mono text-xs">
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">RTL Design</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Physical Design (RTL to GDSII)</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Static Timing Analysis (STA)</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Embedded Systems</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Digital Logic</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Image Processing</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Computer Architecture</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Machine Learning & Data Science</span>
+                        </div>
+                    </div>
+
+                    <div class="tech-panel clip-corner-sm p-6 flex flex-col group lg:col-start-1 lg:ml-24" style="transition-delay: 0.3s;">
+                        <div class="flex items-center gap-4 mb-6 border-b border-[#8c3a21]/50 pb-4">
+                            <div class="p-2 border border-[#8c3a21] bg-[#0c0a09] text-[#00f0ff] group-hover:shadow-[0_0_10px_rgba(0,240,255,0.4)] transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
+                            </div>
+                            <div>
+                                <div class="font-mono text-[10px] text-[#b85d33] tracking-widest">MOD-04</div>
+                                <h3 class="text-xl font-bold text-white group-hover:cyan-text transition-colors">System Env</h3>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 font-mono text-xs">
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Linux (Ubuntu, Red Hat, Rocky, Zorin OS)</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">VirtualBox / Hyper-V</span>
+                        </div>
+                    </div>
+
+                    <div class="tech-panel clip-corner-sm p-6 flex flex-col group lg:col-start-2 lg:mr-24" style="transition-delay: 0.4s;">
+                        <div class="flex items-center gap-4 mb-6 border-b border-[#8c3a21]/50 pb-4">
+                            <div class="p-2 border border-[#8c3a21] bg-[#0c0a09] text-[#00f0ff] group-hover:shadow-[0_0_10px_rgba(0,240,255,0.4)] transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                            </div>
+                            <div>
+                                <div class="font-mono text-[10px] text-[#b85d33] tracking-widest">MOD-05</div>
+                                <h3 class="text-xl font-bold text-white group-hover:cyan-text transition-colors">Soft Skills</h3>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 font-mono text-xs">
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Leadership</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Teamwork</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Research</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Management</span>
+                            <span class="border border-[#8c3a21]/50 bg-[#0c0a09] px-3 py-1.5 text-[#d6d3d1] group-hover:border-[#00f0ff]/50 hover:bg-[#00f0ff]/10 hover:text-[#00f0ff] transition-all cursor-default">Problem Solving</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="min-h-screen px-8 md:px-24 py-24 border-b border-[#8c3a21]/30 bg-[#0c0a09]/50 flex flex-col justify-center">
+            <div class="w-full max-w-5xl mx-auto">
+                <div class="reveal mb-16">
+                    <div class="font-mono text-xs text-[#00f0ff] uppercase tracking-widest mb-2">CAREER & LEADERSHIP</div>
+                    <h2 class="text-5xl md:text-6xl font-black text-white tracking-tight mb-4">Experience</h2>
+                    <p class="text-[#78716c] text-lg">A timeline of my professional internships and organizational roles.</p>
+                </div>
+
+                <div class="relative border-l-2 border-[#8c3a21]/50 ml-3 md:ml-4 space-y-12">
+                    
+                    <div class="relative pl-8 md:pl-12 reveal">
+                        <div class="absolute -left-[11px] top-6 w-5 h-5 rounded-full bg-[#1c1411] border-4 border-[#00f0ff] shadow-[0_0_10px_#00f0ff] z-10"></div>
+                        
+                        <div class="bg-[#1c1411] border border-[#8c3a21] hover:border-[#00f0ff] hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] transition-all p-6 md:p-8 clip-corner-sm group">
+                            <span class="inline-block border border-[#39ff14]/50 bg-[#39ff14]/10 text-[#39ff14] px-3 py-1 rounded-full text-[10px] font-mono font-bold tracking-wider uppercase mb-4">Internship</span>
+                            
+                            <h3 class="text-2xl font-bold text-white mb-1 group-hover:text-[#00f0ff] transition-colors">CSSI Intern</h3>
+                            <div class="font-mono text-sm text-[#b85d33] mb-5">United Way of Baroda | May 2024 – June 2024</div>
+                            
+                            <ul class="list-disc list-inside text-[#d6d3d1] text-sm leading-relaxed space-y-2 marker:text-[#8c3a21]">
+                                <li>Contributed to 'Project Umang', facilitating operational workflows to distribute educational financial aid.</li>
+                                <li>Collaborated with organizational teams to ensure underprivileged students received necessary schooling resources.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="relative pl-8 md:pl-12 reveal" style="transition-delay: 0.1s;">
+                        <div class="absolute -left-[11px] top-6 w-5 h-5 rounded-full bg-[#1c1411] border-4 border-[#00f0ff] shadow-[0_0_10px_#00f0ff] z-10"></div>
+                        
+                        <div class="bg-[#1c1411] border border-[#8c3a21] hover:border-[#00f0ff] hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] transition-all p-6 md:p-8 clip-corner-sm group">
+                            <span class="inline-block border border-[#facc15]/50 bg-[#facc15]/10 text-[#facc15] px-3 py-1 rounded-full text-[10px] font-mono font-bold tracking-wider uppercase mb-4">Society Member</span>
+                            
+                            <h3 class="text-2xl font-bold text-white mb-1 group-hover:text-[#00f0ff] transition-colors">Content & Documentation Member</h3>
+                            <div class="font-mono text-sm text-[#b85d33] mb-5">IEEE Signal Processing Society (SPS) | 2024 – 2025</div>
+                            
+                            <ul class="list-disc list-inside text-[#d6d3d1] text-sm leading-relaxed space-y-2 marker:text-[#8c3a21]">
+                                <li>Spearheaded the drafting and structuring of technical literature and official event documentation.</li>
+                                <li>Maintained comprehensive records for student branch activities, ensuring accurate institutional memory.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="certifications" class="px-8 md:px-24 py-24 md:py-32 flex flex-col justify-center">
+            <div class="w-full max-w-6xl">
+                <div class="reveal mb-16">
+                    <div class="font-mono text-xs text-[#00f0ff] uppercase tracking-widest mb-2">ACHIEVEMENTS & WORKSHOPS</div>
+                    <h2 class="text-5xl md:text-6xl font-black text-white tracking-tight">Certifications</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 reveal">
+                    
+                    <div class="relative pl-8 border-l-2 border-[#8c3a21]/50 hover:border-[#00f0ff] transition-colors group">
+                        <div class="absolute -left-[5px] top-2 w-2 h-2 rounded-full bg-[#00f0ff] shadow-[0_0_8px_#00f0ff]"></div>
+                        <h3 class="text-lg md:text-xl font-bold text-white group-hover:text-[#00f0ff] transition-colors cursor-default">C-Based VLSI Design</h3>
+                        <p class="text-sm font-mono text-[#b85d33] mt-1">NPTEL | Score: 81%</p>
+                    </div>
+
+                    <div class="relative pl-8 border-l-2 border-[#8c3a21]/50 hover:border-[#00f0ff] transition-colors group">
+                        <div class="absolute -left-[5px] top-2 w-2 h-2 rounded-full bg-[#00f0ff] shadow-[0_0_8px_#00f0ff]"></div>
+                        <h3 class="text-lg md:text-xl font-bold text-white group-hover:text-[#00f0ff] transition-colors cursor-default">MATLAB Onramp</h3>
+                        <p class="text-sm font-mono text-[#b85d33] mt-1">MathWorks</p>
+                    </div>
+
+                    <div class="relative pl-8 border-l-2 border-[#8c3a21]/50 hover:border-[#00f0ff] transition-colors group">
+                        <div class="absolute -left-[5px] top-2 w-2 h-2 rounded-full bg-[#00f0ff] shadow-[0_0_8px_#00f0ff]"></div>
+                        <h3 class="text-lg md:text-xl font-bold text-white group-hover:text-[#00f0ff] transition-colors cursor-default">Signal Processing Onramp</h3>
+                        <p class="text-sm font-mono text-[#b85d33] mt-1">MathWorks</p>
+                    </div>
+
+                    <div class="relative pl-8 border-l-2 border-[#8c3a21]/50 hover:border-[#00f0ff] transition-colors group">
+                        <div class="absolute -left-[5px] top-2 w-2 h-2 rounded-full bg-[#00f0ff] shadow-[0_0_8px_#00f0ff]"></div>
+                        <h3 class="text-lg md:text-xl font-bold text-white group-hover:text-[#00f0ff] transition-colors cursor-default">Core MATLAB Skills</h3>
+                        <p class="text-sm font-mono text-[#b85d33] mt-1">MathWorks</p>
+                    </div>
+
+                    <div class="relative pl-8 border-l-2 border-[#8c3a21]/50 hover:border-[#00f0ff] transition-colors group">
+                        <div class="absolute -left-[5px] top-2 w-2 h-2 rounded-full bg-[#00f0ff] shadow-[0_0_8px_#00f0ff]"></div>
+                        <h3 class="text-lg md:text-xl font-bold text-white group-hover:text-[#00f0ff] transition-colors cursor-default">RISC-V Bare-Metal Programming</h3>
+                        <p class="text-sm font-mono text-[#b85d33] mt-1">Specialized Workshop</p>
+                    </div>
+
+                    <div class="relative pl-8 border-l-2 border-[#8c3a21]/50 hover:border-[#00f0ff] transition-colors group">
+                        <div class="absolute -left-[5px] top-2 w-2 h-2 rounded-full bg-[#00f0ff] shadow-[0_0_8px_#00f0ff]"></div>
+                        <h3 class="text-lg md:text-xl font-bold text-white group-hover:text-[#00f0ff] transition-colors cursor-default">RTL-GDSII Using Synopsys Tools</h3>
+                        <p class="text-sm font-mono text-[#b85d33] mt-1">Specialized Workshop</p>
+                    </div>
+
+                    <div class="relative pl-8 border-l-2 border-[#8c3a21]/50 hover:border-[#00f0ff] transition-colors group">
+                        <div class="absolute -left-[5px] top-2 w-2 h-2 rounded-full bg-[#00f0ff] shadow-[0_0_8px_#00f0ff]"></div>
+                        <h3 class="text-lg md:text-xl font-bold text-white group-hover:text-[#00f0ff] transition-colors cursor-default">Cadence Virtuoso</h3>
+                        <p class="text-sm font-mono text-[#b85d33] mt-1">2-Day Workshop</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="w-full">
+            <footer class="border-t border-[#8c3a21]/50 bg-[#1c1411] py-16 px-8 md:px-24 relative w-full">
+                <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#00f0ff] to-transparent opacity-50"></div>
+                <h2 class="font-mono text-3xl font-bold text-white mb-8">Contact Me</h2>
+                <div class="flex flex-col md:flex-row gap-8 md:gap-16 font-mono text-sm">
+                    <div>
+                        <span class="text-[#b85d33] block mb-1">EMAIL</span>
+                        <a href="mailto:kevinshah2205@gmail.com" class="text-[#d6d3d1] hover:text-[#00f0ff] transition-colors">kevinshah2205@gmail.com</a>
+                    </div>
+                    <div>
+                        <span class="text-[#b85d33] block mb-1">PHONE</span>
+                        <a href="tel:+919409034229" class="text-[#d6d3d1] hover:text-[#00f0ff] transition-colors">+91-9409034229</a>
+                    </div>
+                    <div>
+                        <span class="text-[#b85d33] block mb-1">NETWORK</span>
+                        <a href="#" class="text-[#d6d3d1] hover:text-[#00f0ff] transition-colors">LinkedIn</a> | 
+                        <a href="#" class="text-[#d6d3d1] hover:text-[#00f0ff] transition-colors">GitHub</a>
+                    </div>
+                </div>
+                <div class="mt-16 text-xs font-mono text-[#78716c]">
+                    © 2026 Kevin Shah
+                </div>
+            </footer>
+        </section>
+    </div>
+
+    <div id="artifact-modal" class="fixed inset-0 z-[200] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-500 bg-[#0c0a09]/95 backdrop-blur-md">
+        <div class="tech-panel p-8 w-11/12 max-w-5xl clip-corner relative">
+            <button onclick="closeArtifact()" class="absolute top-4 right-6 text-[#8c3a21] hover:text-[#00f0ff] font-mono text-2xl font-bold transition-colors z-50">X</button>
+            <h2 id="modal-title" class="font-mono text-2xl md:text-3xl cyan-text mb-2 tracking-tight"></h2>
+            <div id="modal-subtitle" class="font-mono text-xs text-[#b85d33] mb-8"></div>
+            <div class="border border-[#8c3a21]/50 bg-[#0c0a09] p-6 relative overflow-hidden min-h-[450px] flex flex-col justify-center">
+                <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: linear-gradient(#00f0ff 1px, transparent 1px), linear-gradient(90deg, #00f0ff 1px, transparent 1px); background-size: 20px 20px;"></div>
+                <div id="artifact-display" class="relative z-10 w-full h-full font-mono text-sm text-[#d6d3d1]">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- SCROLL REVEAL LOGIC ---
+        function initScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+        
+        initScrollReveal();
+
+        // --- ALIEN TEXT DECRYPTION EFFECT ---
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
+        document.querySelectorAll('.decrypt-text').forEach(el => {
+            el.addEventListener('mouseover', event => {
+                let iterations = 0;
+                const originalText = event.target.dataset.value;
+                clearInterval(el.interval);
+                el.interval = setInterval(() => {
+                    event.target.innerText = originalText.split("")
+                        .map((letter, index) => {
+                            if(index < iterations) return originalText[index];
+                            return letters[Math.floor(Math.random() * 42)]
+                        })
+                        .join("");
+                    if(iterations >= originalText.length) clearInterval(el.interval);
+                    iterations += 1 / 3;
+                }, 30);
+            });
+        });
+
+        // --- ARTIFACT MODAL LOGIC ---
+        const modal = document.getElementById('artifact-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalSub = document.getElementById('modal-subtitle');
+        const artifactDisplay = document.getElementById('artifact-display');
+        
+        let activeSimLoop = null;
+        let droneLoop = null;
+
+        const artifacts = {
+            'subtractor': {
+                title: "8-Bit Subtractor RTL Model",
+                sub: "VLSI LOGIC // A - B = DIFFERENCE",
+                html: `
+                    <div class="relative w-full h-full min-h-[400px] flex items-center justify-center overflow-hidden">
+                        
+                        <button onclick="changeSubSlide(-1)" class="absolute left-0 z-30 bg-[#1c1411]/80 text-[#00f0ff] p-4 hover:bg-[#00f0ff] hover:text-black transition-colors rounded-r-md">&#10094;</button>
+                        <button onclick="changeSubSlide(1)" class="absolute right-0 z-30 bg-[#1c1411]/80 text-[#00f0ff] p-4 hover:bg-[#00f0ff] hover:text-black transition-colors rounded-l-md">&#10095;</button>
+
+                        <div id="sub-slide-0" class="sub-slide absolute inset-0 transition-opacity duration-500 opacity-100 z-20 flex flex-col items-center justify-center p-4">
+                            <p class="text-[#00f0ff] font-bold mb-4 bg-[#0c0a09] px-2">Gate-Level Schematic</p>
+                            <img src="https://i.ibb.co/m53tpZG3/452265403-5d7a6253-d5e7-46db-bbed-4d0cea18d5ea.png" class="max-h-[350px] max-w-full object-contain border border-[#8c3a21]/50 p-2" alt="Gate-Level Schematic">
+                        </div>
+                        
+                        <div id="sub-slide-1" class="sub-slide absolute inset-0 transition-opacity duration-500 opacity-0 z-0 pointer-events-none flex flex-col items-center justify-center p-4">
+                            <p class="text-[#00f0ff] font-bold mb-4 bg-[#0c0a09] px-2">Physical Layout (GDSII)</p>
+                            <img src="https://i.ibb.co/h1X1Wc4M/image.png" class="max-h-[350px] max-w-full object-contain border border-[#8c3a21]/50 p-2" alt="Physical Layout">
+                        </div>
+                        
+                        <div id="sub-slide-2" class="sub-slide absolute inset-0 transition-opacity duration-500 opacity-0 z-0 pointer-events-none flex flex-col items-center justify-center pt-8">
+                            <p class="text-[#00f0ff] font-bold mb-4 bg-[#0c0a09] px-2">Interactive Logic Simulation</p>
+                            <div class="flex flex-col md:flex-row gap-8 w-full max-w-4xl px-8">
+                                <div class="flex flex-col flex-1 justify-center relative z-10">
+                                    <div class="flex gap-4 mb-6">
+                                        <div class="flex flex-col items-center">
+                                            <label class="text-[#8c3a21] mb-2 text-xs font-bold">INPUT A (0-255)</label>
+                                            <input type="number" id="sub-a" value="150" min="0" max="255" class="bg-[#1c1411] border border-[#00f0ff] text-[#00f0ff] p-2 w-20 text-center outline-none transition-shadow focus:shadow-[0_0_10px_#00f0ff]">
+                                        </div>
+                                        <div class="flex flex-col items-center">
+                                            <label class="text-[#8c3a21] mb-2 text-xs font-bold">INPUT B (0-255)</label>
+                                            <input type="number" id="sub-b" value="45" min="0" max="255" class="bg-[#1c1411] border border-[#00f0ff] text-[#00f0ff] p-2 w-20 text-center outline-none transition-shadow focus:shadow-[0_0_10px_#00f0ff]">
+                                        </div>
+                                    </div>
+                                    
+                                    <button onclick="runSubtractor()" class="artifact-btn mb-6 w-max">Run Synthesis</button>
+                                    
+                                    <div class="bg-[#1c1411]/90 border border-[#8c3a21] p-4 w-full">
+                                        <div class="flex justify-between mb-2 text-xs"><span>[A] BINARY:</span> <span id="out-a" class="text-[#00f0ff]">10010110</span></div>
+                                        <div class="flex justify-between mb-2 text-xs border-b border-[#8c3a21]/50 pb-2"><span>[B] BINARY:</span> <span id="out-b" class="text-[#00f0ff]">00101101</span></div>
+                                        <div class="flex justify-between mb-2 pt-2 text-xs"><span>[DIFF] OUT:</span> <span id="out-diff" class="text-[#39ff14]">01101001</span></div>
+                                        <div class="flex justify-between text-xs"><span>[BORROW FLAG]:</span> <span id="out-bout" class="text-[#ff3333]">0</span></div>
+                                    </div>
+                                </div>
+
+                                <div class="flex-1 border border-[#8c3a21]/40 bg-[#0c0a09]/50 relative flex items-center justify-center p-4 min-h-[250px] z-10">
+                                    <svg viewBox="0 0 200 200" class="w-full h-full max-w-[250px]">
+                                        <line id="wire-a" class="wire" x1="10" y1="50" x2="60" y2="50" />
+                                        <text class="svg-text" x="20" y="40">A</text>
+                                        <text id="svg-val-a" class="svg-val" x="15" y="65" fill="#00f0ff">150</text>
+
+                                        <line id="wire-b" class="wire" x1="10" y1="150" x2="60" y2="150" />
+                                        <text class="svg-text" x="20" y="140">B</text>
+                                        <text id="svg-val-b" class="svg-val" x="15" y="165" fill="#00f0ff">45</text>
+
+                                        <polygon id="alu-block" class="alu-core" points="60,20 140,60 140,140 60,180 60,120 80,100 60,80" />
+                                        <text class="svg-text" x="85" y="105" style="fill:#8c3a21; font-weight:bold; font-size:16px;">ALU</text>
+
+                                        <line id="wire-diff" class="wire" x1="140" y1="100" x2="190" y2="100" />
+                                        <text class="svg-text" x="150" y="90">DIFF</text>
+                                        <text id="svg-val-diff" class="svg-val" x="155" y="115" fill="#39ff14">105</text>
+
+                                        <line id="wire-bout" class="wire" x1="125" y1="135" x2="125" y2="180" />
+                                        <text class="svg-text" x="135" y="175">BOUT</text>
+                                        <text id="svg-val-bout" class="svg-val" x="105" y="175" fill="#ff3333">0</text>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="absolute bottom-[0px] flex gap-3 z-30">
+                            <div class="sub-dot w-2 h-2 rounded-full bg-[#00f0ff] transition-colors"></div>
+                            <div class="sub-dot w-2 h-2 rounded-full bg-slate-600 transition-colors"></div>
+                            <div class="sub-dot w-2 h-2 rounded-full bg-slate-600 transition-colors"></div>
+                        </div>
+                    </div>
+                `,
+                init: () => {
+                    window.currentSubSlide = 0;
+                    
+                    window.changeSubSlide = (dir) => {
+                        const slides = document.querySelectorAll('.sub-slide');
+                        const dots = document.querySelectorAll('.sub-dot');
+                        if(!slides.length) return;
+                        
+                        slides[window.currentSubSlide].classList.replace('opacity-100', 'opacity-0');
+                        slides[window.currentSubSlide].classList.replace('z-20', 'z-0');
+                        slides[window.currentSubSlide].classList.add('pointer-events-none');
+                        dots[window.currentSubSlide].classList.replace('bg-[#00f0ff]', 'bg-slate-600');
+                        
+                        window.currentSubSlide = (window.currentSubSlide + dir + 3) % 3;
+                        
+                        slides[window.currentSubSlide].classList.replace('opacity-0', 'opacity-100');
+                        slides[window.currentSubSlide].classList.replace('z-0', 'z-20');
+                        slides[window.currentSubSlide].classList.remove('pointer-events-none');
+                        dots[window.currentSubSlide].classList.replace('bg-slate-600', 'bg-[#00f0ff]');
+                    };
+
+                    window.runSubtractor = () => {
+                        let a = parseInt(document.getElementById('sub-a').value) || 0;
+                        let b = parseInt(document.getElementById('sub-b').value) || 0;
+                        a = Math.max(0, Math.min(255, a)); b = Math.max(0, Math.min(255, b));
+                        document.getElementById('sub-a').value = a; document.getElementById('sub-b').value = b;
+                        
+                        const diff = (a - b) & 255; 
+                        const bout = a < b ? 1 : 0;
+                        
+                        document.getElementById('out-a').innerText = a.toString(2).padStart(8, '0');
+                        document.getElementById('out-b').innerText = b.toString(2).padStart(8, '0');
+                        document.getElementById('out-diff').innerText = diff.toString(2).padStart(8, '0');
+                        document.getElementById('out-bout').innerText = bout;
+
+                        document.getElementById('svg-val-a').textContent = a;
+                        document.getElementById('svg-val-b').textContent = b;
+                        document.getElementById('svg-val-diff').textContent = diff;
+                        document.getElementById('svg-val-bout').textContent = bout;
+
+                        const elements = document.querySelectorAll('.wire, .alu-core');
+                        elements.forEach(w => w.classList.add('active'));
+                        setTimeout(() => { elements.forEach(w => w.classList.remove('active')); }, 800);
+                    }
+                }
+            },
+            'traffic': {
+                title: "Traffic Junction Controller",
+                sub: "4-WAY INTERSECTION SIMULATION",
+                html: `
+                    <div class="relative w-full h-full min-h-[450px] flex items-center justify-center overflow-hidden">
+                        
+                        <button onclick="changeTrafficSlide(-1)" class="absolute left-0 z-30 bg-[#1c1411]/80 text-[#00f0ff] p-4 hover:bg-[#00f0ff] hover:text-black transition-colors rounded-r-md">&#10094;</button>
+                        <button onclick="changeTrafficSlide(1)" class="absolute right-0 z-30 bg-[#1c1411]/80 text-[#00f0ff] p-4 hover:bg-[#00f0ff] hover:text-black transition-colors rounded-l-md">&#10095;</button>
+
+                        <div id="traffic-slide-0" class="traffic-slide absolute inset-0 transition-opacity duration-500 opacity-100 z-20 flex flex-col items-center justify-center p-4">
+                            <p class="text-[#00f0ff] font-bold mb-4 bg-[#0c0a09] px-2">Proteus Circuit Simulation</p>
+                            <img src="https://i.ibb.co/SDvZFV95/Screenshot-2026-03-15-180508.png" class="max-h-[350px] max-w-full object-contain border border-[#8c3a21]/50 p-2" alt="Proteus Simulation">
+                        </div>
+
+                        <div id="traffic-slide-1" class="traffic-slide absolute inset-0 transition-opacity duration-500 opacity-0 z-0 pointer-events-none flex flex-col items-center justify-center pt-8">
+                            <p class="text-[#00f0ff] font-bold mb-4 bg-[#0c0a09] px-2">Interactive Logic Simulation</p>
+                            <div class="flex flex-col md:flex-row gap-8 w-full items-center justify-center">
+                                <div class="flex flex-col flex-1 w-full max-w-sm z-10">
+                                    <div class="bg-[#1c1411]/90 border border-[#8c3a21] p-6 font-mono text-sm mb-6 shadow-[0_0_15px_rgba(140,58,33,0.2)]">
+                                        <h4 class="text-cyan-300 font-bold mb-4 text-center border-b border-[#8c3a21]/50 pb-2">JUNCTION CLOCK</h4>
+                                        <div class="flex justify-between mb-2"><span class="text-slate-400">ACTIVE ROUTE:</span><span id="active-route" class="text-[#39ff14] font-bold">NORTH</span></div>
+                                        <div class="flex justify-between mb-2"><span class="text-slate-400">SIGNAL STATE:</span><span id="signal-state" class="text-[#22c55e] font-bold">GREEN</span></div>
+                                        <div class="flex justify-between mb-6"><span class="text-slate-400">TIME REMAINING:</span><span id="time-remaining" class="text-white font-bold text-lg">05.0s</span></div>
+                                        <div class="space-y-2 text-xs border-t border-[#8c3a21]/50 pt-4">
+                                            <div class="flex justify-between"><span class="w-12">NORTH:</span> <span id="dash-n" class="text-[#22c55e]">GREEN</span></div>
+                                            <div class="flex justify-between"><span class="w-12">EAST:</span> <span id="dash-e" class="text-[#ef4444]">RED</span></div>
+                                            <div class="flex justify-between"><span class="w-12">SOUTH:</span> <span id="dash-s" class="text-[#ef4444]">RED</span></div>
+                                            <div class="flex justify-between"><span class="w-12">WEST:</span> <span id="dash-w" class="text-[#ef4444]">RED</span></div>
+                                        </div>
+                                    </div>
+                                    <button onclick="toggleTraffic()" id="traffic-btn" class="artifact-btn w-full">START CLOCK CYCLES</button>
+                                </div>
+                                <div id="traffic-sim" class="relative w-[300px] h-[300px] shrink-0 bg-[#1a1a1a] border-2 border-[#8c3a21]/50 overflow-hidden rounded-lg shadow-inner z-10">
+                                    <div class="absolute left-1/2 -translate-x-1/2 top-0 w-[80px] h-full bg-[#333]"><div class="absolute left-1/2 -translate-x-1/2 w-[2px] h-full bg-white/50 border-dashed border-l-2"></div></div>
+                                    <div class="absolute top-1/2 -translate-y-1/2 left-0 h-[80px] w-full bg-[#333]"><div class="absolute top-1/2 -translate-y-1/2 h-[2px] w-full bg-white/50 border-dashed border-t-2"></div></div>
+                                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80px] h-[80px] bg-[#3a3a3a]"></div>
+
+                                    <div class="absolute top-[85px] left-[115px] flex gap-[2px] bg-black p-1 rounded"><div id="n-r" class="w-2 h-2 rounded-full bg-red-900"></div><div id="n-y" class="w-2 h-2 rounded-full bg-yellow-900"></div><div id="n-g" class="w-2 h-2 rounded-full bg-green-900"></div></div>
+                                    <div class="absolute bottom-[85px] right-[115px] flex gap-[2px] bg-black p-1 rounded"><div id="s-r" class="w-2 h-2 rounded-full bg-red-900"></div><div id="s-y" class="w-2 h-2 rounded-full bg-yellow-900"></div><div id="s-g" class="w-2 h-2 rounded-full bg-green-900"></div></div>
+                                    <div class="absolute right-[85px] top-[115px] flex flex-col gap-[2px] bg-black p-1 rounded"><div id="e-r" class="w-2 h-2 rounded-full bg-red-900"></div><div id="e-y" class="w-2 h-2 rounded-full bg-yellow-900"></div><div id="e-g" class="w-2 h-2 rounded-full bg-green-900"></div></div>
+                                    <div class="absolute left-[85px] bottom-[115px] flex flex-col gap-[2px] bg-black p-1 rounded"><div id="w-r" class="w-2 h-2 rounded-full bg-red-900"></div><div id="w-y" class="w-2 h-2 rounded-full bg-yellow-900"></div><div id="w-g" class="w-2 h-2 rounded-full bg-green-900"></div></div>
+
+                                    <div id="car-layer" class="absolute inset-0 pointer-events-none"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="absolute bottom-[0px] flex gap-3 z-30">
+                            <div class="traffic-dot w-2 h-2 rounded-full bg-[#00f0ff] transition-colors"></div>
+                            <div class="traffic-dot w-2 h-2 rounded-full bg-slate-600 transition-colors"></div>
+                        </div>
+                    </div>
+                `,
+                init: () => {
+                    window.currentTrafficSlide = 0;
+                    
+                    window.changeTrafficSlide = (dir) => {
+                        const slides = document.querySelectorAll('.traffic-slide');
+                        const dots = document.querySelectorAll('.traffic-dot');
+                        if(!slides.length) return;
+                        
+                        slides[window.currentTrafficSlide].classList.replace('opacity-100', 'opacity-0');
+                        slides[window.currentTrafficSlide].classList.replace('z-20', 'z-0');
+                        slides[window.currentTrafficSlide].classList.add('pointer-events-none');
+                        dots[window.currentTrafficSlide].classList.replace('bg-[#00f0ff]', 'bg-slate-600');
+                        
+                        window.currentTrafficSlide = (window.currentTrafficSlide + dir + 2) % 2;
+                        
+                        slides[window.currentTrafficSlide].classList.replace('opacity-0', 'opacity-100');
+                        slides[window.currentTrafficSlide].classList.replace('z-0', 'z-20');
+                        slides[window.currentTrafficSlide].classList.remove('pointer-events-none');
+                        dots[window.currentTrafficSlide].classList.replace('bg-slate-600', 'bg-[#00f0ff]');
+                    };
+
+                    let phase = 0; let running = false; let timeRemaining = 5000; let lastTime = Date.now();
+                    const carLayer = document.getElementById('car-layer');
+                    let cars = [];
+                    
+                    function updateLightsUI() {
+                        const activeDir = ['n','n','e','e','s','s','w','w'][phase];
+                        const dashNames = ['NORTH','NORTH','EAST','EAST','SOUTH','SOUTH','WEST','WEST'][phase];
+                        const signalColor = (phase % 2 === 0) ? 'GREEN' : 'YELLOW';
+                        const signalHex = (phase % 2 === 0) ? '#22c55e' : '#facc15';
+
+                        document.getElementById('active-route').innerText = dashNames;
+                        document.getElementById('signal-state').innerText = signalColor;
+                        document.getElementById('signal-state').style.color = signalHex;
+
+                        ['dash-n', 'dash-e', 'dash-s', 'dash-w'].forEach(id => {
+                            document.getElementById(id).innerText = 'RED'; document.getElementById(id).style.color = '#ef4444';
+                        });
+                        
+                        let curDash = ['dash-n', 'dash-n', 'dash-e', 'dash-e', 'dash-s', 'dash-s', 'dash-w', 'dash-w'][phase];
+                        document.getElementById(curDash).innerText = signalColor; document.getElementById(curDash).style.color = signalHex;
+
+                        const lights = ['n','s','e','w'].map(d => ['r','y','g'].map(c => document.getElementById(`${d}-${c}`))).flat();
+                        lights.forEach(l => {
+                            l.className = 'w-2 h-2 rounded-full bg-black'; 
+                            if(l.id.endsWith('r')) l.classList.add('bg-red-900');
+                            if(l.id.endsWith('y')) l.classList.add('bg-yellow-900');
+                            if(l.id.endsWith('g')) l.classList.add('bg-green-900');
+                        });
+                        
+                        ['n','s','e','w'].forEach(dir => {
+                            if(dir !== activeDir) document.getElementById(`${dir}-r`).className = 'w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_#ef4444]';
+                        });
+                        
+                        document.getElementById(`${activeDir}-r`).className = 'w-2 h-2 rounded-full bg-red-900';
+                        if(phase % 2 === 0) document.getElementById(`${activeDir}-g`).className = 'w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#22c55e]';
+                        else document.getElementById(`${activeDir}-y`).className = 'w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_8px_#facc15]';
+                    }
+
+                    class Car {
+                        constructor(dir) {
+                            this.dir = dir; this.speed = 1.0 + Math.random() * 0.5;
+                            this.turn = ['straight', 'straight', 'left', 'right'][Math.floor(Math.random() * 4)];
+                            this.el = document.createElement('div');
+                            this.el.className = `absolute w-[10px] h-[10px] rounded-[2px] shadow-[0_0_5px_rgba(0,240,255,0.8)] bg-[#00f0ff]`;
+                            carLayer.appendChild(this.el);
+                            
+                            if(dir === 'N') { this.x = 165; this.y = 310; } 
+                            if(dir === 'S') { this.x = 125; this.y = -20; } 
+                            if(dir === 'E') { this.x = -20; this.y = 165; } 
+                            if(dir === 'W') { this.x = 310; this.y = 125; } 
+                            this.updateDOM();
+                        }
+                        updateDOM() { this.el.style.left = this.x + 'px'; this.el.style.top = this.y + 'px'; }
+                        move(allCars) {
+                            let canGo = false;
+                            if(this.dir === 'N' && (phase === 0 || phase === 1)) canGo = true;
+                            if(this.dir === 'E' && (phase === 2 || phase === 3)) canGo = true;
+                            if(this.dir === 'S' && (phase === 4 || phase === 5)) canGo = true;
+                            if(this.dir === 'W' && (phase === 6 || phase === 7)) canGo = true;
+
+                            let canMove = true;
+                            let distToNext = 999;
+                            allCars.forEach(c => {
+                                if(c !== this && c.dir === this.dir) {
+                                    if(this.dir === 'N' && c.x === this.x && c.y < this.y && c.y > this.y - 15) distToNext = this.y - c.y;
+                                    if(this.dir === 'S' && c.x === this.x && c.y > this.y && c.y < this.y + 15) distToNext = c.y - this.y;
+                                    if(this.dir === 'E' && c.y === this.y && c.x > this.x && c.x < this.x + 15) distToNext = c.x - this.x;
+                                    if(this.dir === 'W' && c.y === this.y && c.x < this.x && c.x > this.x - 15) distToNext = this.x - c.x;
+                                }
+                            });
+                            if(distToNext < 15) canMove = false;
+
+                            if(this.dir === 'N' && !canGo && this.y > 190 && (this.y - this.speed) <= 195) { canMove = false; this.y = 195; }
+                            if(this.dir === 'S' && !canGo && this.y < 110 && (this.y + this.speed) >= 95) { canMove = false; this.y = 95; }
+                            if(this.dir === 'E' && !canGo && this.x < 110 && (this.x + this.speed) >= 95) { canMove = false; this.x = 95; }
+                            if(this.dir === 'W' && !canGo && this.x > 190 && (this.x - this.speed) <= 195) { canMove = false; this.x = 195; }
+
+                            if(canMove) {
+                                if (this.turn === 'left') {
+                                    if(this.dir === 'N' && this.y <= 125) { this.dir = 'W'; this.y = 125; this.turn = 'straight'; }
+                                    if(this.dir === 'S' && this.y >= 165) { this.dir = 'E'; this.y = 165; this.turn = 'straight'; }
+                                    if(this.dir === 'E' && this.x >= 165) { this.dir = 'N'; this.x = 165; this.turn = 'straight'; }
+                                    if(this.dir === 'W' && this.x <= 125) { this.dir = 'S'; this.x = 125; this.turn = 'straight'; }
+                                } else if (this.turn === 'right') {
+                                    if(this.dir === 'N' && this.y <= 165) { this.dir = 'E'; this.y = 165; this.turn = 'straight'; }
+                                    if(this.dir === 'S' && this.y >= 125) { this.dir = 'W'; this.y = 125; this.turn = 'straight'; }
+                                    if(this.dir === 'E' && this.x >= 125) { this.dir = 'S'; this.x = 125; this.turn = 'straight'; }
+                                    if(this.dir === 'W' && this.x <= 165) { this.dir = 'N'; this.x = 165; this.turn = 'straight'; }
+                                }
+                                if(this.dir === 'N') this.y -= this.speed;
+                                if(this.dir === 'S') this.y += this.speed;
+                                if(this.dir === 'E') this.x += this.speed;
+                                if(this.dir === 'W') this.x -= this.speed;
+                            }
+                            this.updateDOM();
+                        }
+                        isOut() { return this.x < -30 || this.x > 330 || this.y < -30 || this.y > 330; }
+                    }
+
+                    function simLoopTick() {
+                        if(!running) return;
+                        let now = Date.now(); let dt = now - lastTime; lastTime = now;
+                        timeRemaining -= dt;
+                        if(timeRemaining <= 0) {
+                            phase = (phase + 1) % 8;
+                            timeRemaining = (phase % 2 === 0) ? 5000 : 2000;
+                            updateLightsUI();
+                        }
+                        document.getElementById('time-remaining').innerText = (timeRemaining / 1000).toFixed(1) + 's';
+                        
+                        if(Math.random() < 0.02) {
+                            const dirs = ['N', 'S', 'E', 'W'];
+                            cars.push(new Car(dirs[Math.floor(Math.random()*dirs.length)]));
+                        }
+                        cars.forEach(c => c.move(cars));
+                        cars = cars.filter(c => {
+                            if(c.isOut()) { c.el.remove(); return false; } return true;
+                        });
+                        activeSimLoop = requestAnimationFrame(simLoopTick);
+                    }
+
+                    window.toggleTraffic = () => {
+                        running = !running;
+                        document.getElementById('traffic-btn').innerText = running ? "HALT CLOCK" : "START CLOCK CYCLES";
+                        if(running) { lastTime = Date.now(); updateLightsUI(); simLoopTick(); } 
+                        else { cancelAnimationFrame(activeSimLoop); }
+                    }
+                    updateLightsUI(); 
+                }
+            },
+            'weather': {
+                title: "AI Weather Station Telemetry",
+                sub: "ESP32 // I2C SENSOR ARRAY // AI FORECAST",
+                html: `
+                    <div class="relative w-full h-full min-h-[450px] flex items-center justify-center overflow-hidden">
+                        
+                        <button onclick="changeWeatherSlide(-1)" class="absolute left-0 z-30 bg-[#1c1411]/80 text-[#00f0ff] p-4 hover:bg-[#00f0ff] hover:text-black transition-colors rounded-r-md">&#10094;</button>
+                        <button onclick="changeWeatherSlide(1)" class="absolute right-0 z-30 bg-[#1c1411]/80 text-[#00f0ff] p-4 hover:bg-[#00f0ff] hover:text-black transition-colors rounded-l-md">&#10095;</button>
+
+                        <div id="weather-slide-0" class="weather-slide absolute inset-0 transition-opacity duration-500 opacity-100 z-20 flex flex-col items-center justify-center p-4">
+                            <p class="text-[#00f0ff] font-bold mb-4 bg-[#0c0a09] px-2">Hardware Setup / Schematic</p>
+                            <img src="https://i.ibb.co/MyQbDcrx/Screenshot-2026-03-15-180437.png" class="max-h-[350px] max-w-full object-contain border border-[#8c3a21]/50 p-2" alt="Weather Station Setup" onerror="this.src='https://placehold.co/600x300/1c1411/00f0ff?text=Image+Load+Error'">
+                        </div>
+
+                        <div id="weather-slide-1" class="weather-slide absolute inset-0 transition-opacity duration-500 opacity-0 z-0 pointer-events-none flex flex-col items-center justify-center pt-8">
+                            <p class="text-[#00f0ff] font-bold mb-4 bg-[#0c0a09] px-2">Live Telemetry Dashboard</p>
+                            <div class="flex flex-col w-full max-w-2xl mx-auto z-10">
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                                    <div class="bg-[#1c1411] border border-[#8c3a21] p-3 text-center">
+                                        <div class="text-[#78716c] text-[10px] mb-1">SHT20 (TEMP)</div>
+                                        <div id="w-temp" class="text-xl text-[#00f0ff]">--°C</div>
+                                    </div>
+                                    <div class="bg-[#1c1411] border border-[#8c3a21] p-3 text-center">
+                                        <div class="text-[#78716c] text-[10px] mb-1">SHT20 (HUM)</div>
+                                        <div id="w-hum" class="text-xl text-[#00f0ff]">--%</div>
+                                    </div>
+                                    <div class="bg-[#1c1411] border border-[#8c3a21] p-3 text-center">
+                                        <div class="text-[#78716c] text-[10px] mb-1">BMP280 (PRES)</div>
+                                        <div id="w-pres" class="text-xl text-[#00f0ff]">-- hPa</div>
+                                    </div>
+                                    <div class="bg-[#1c1411] border border-[#8c3a21] p-3 text-center">
+                                        <div class="text-[#78716c] text-[10px] mb-1">GUVA-S12SD (UV)</div>
+                                        <div id="w-uv" class="text-xl text-[#00f0ff]">--</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-[#0c0a09] border border-[#8c3a21]/50 p-4 mb-4 text-center">
+                                    <div class="text-[#b85d33] text-xs font-bold mb-2">> AI WEATHER PREDICTION MODEL</div>
+                                    <div id="w-ai" class="text-2xl text-[#39ff14] animate-pulse">ANALYZING DATA...</div>
+                                </div>
+
+                                <div class="bg-[#0c0a09] border border-[#8c3a21]/50 p-2 h-32 overflow-hidden flex flex-col justify-end font-mono text-xs" id="w-log">
+                                    <div class="text-[#78716c]">> Booting ESP32... OK</div>
+                                    <div class="text-[#78716c]">> Initializing I2C/ADC... OK</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="absolute bottom-[0px] flex gap-3 z-30">
+                            <div class="weather-dot w-2 h-2 rounded-full bg-[#00f0ff] transition-colors"></div>
+                            <div class="weather-dot w-2 h-2 rounded-full bg-slate-600 transition-colors"></div>
+                        </div>
+                    </div>
+                `,
+                init: () => {
+                    window.currentWeatherSlide = 0;
+                    
+                    window.changeWeatherSlide = (dir) => {
+                        const slides = document.querySelectorAll('.weather-slide');
+                        const dots = document.querySelectorAll('.weather-dot');
+                        if(!slides.length) return;
+                        
+                        slides[window.currentWeatherSlide].classList.replace('opacity-100', 'opacity-0');
+                        slides[window.currentWeatherSlide].classList.replace('z-20', 'z-0');
+                        slides[window.currentWeatherSlide].classList.add('pointer-events-none');
+                        dots[window.currentWeatherSlide].classList.replace('bg-[#00f0ff]', 'bg-slate-600');
+                        
+                        window.currentWeatherSlide = (window.currentWeatherSlide + dir + 2) % 2;
+                        
+                        slides[window.currentWeatherSlide].classList.replace('opacity-0', 'opacity-100');
+                        slides[window.currentWeatherSlide].classList.replace('z-0', 'z-20');
+                        slides[window.currentWeatherSlide].classList.remove('pointer-events-none');
+                        dots[window.currentWeatherSlide].classList.replace('bg-slate-600', 'bg-[#00f0ff]');
+                    };
+
+                    const tempEl = document.getElementById('w-temp');
+                    const humEl = document.getElementById('w-hum');
+                    const presEl = document.getElementById('w-pres');
+                    const uvEl = document.getElementById('w-uv');
+                    const aiEl = document.getElementById('w-ai');
+                    const logEl = document.getElementById('w-log');
+
+                    const forecasts = ["CLEAR SKIES", "LIGHT RAIN EXPECTED", "OVERCAST", "HIGH UV WARNING", "PRESSURE DROP - STORM LIKELY"];
+
+                    let tick = 0;
+                    window._currentWeatherInterval = setInterval(() => {
+                        tick++;
+                        let temp = (28 + Math.random() * 4).toFixed(1);
+                        let hum = (60 + Math.random() * 10).toFixed(1);
+                        let pres = (1010 + Math.random() * 5).toFixed(1);
+                        let uv = (3 + Math.random() * 4).toFixed(1);
+                        
+                        tempEl.innerText = temp + '°C';
+                        humEl.innerText = hum + '%';
+                        presEl.innerText = pres + ' hPa';
+                        uvEl.innerText = uv;
+                        
+                        if (tick % 5 === 0) {
+                            aiEl.innerText = forecasts[Math.floor(Math.random() * forecasts.length)];
+                        }
+
+                        const msg = document.createElement('div');
+                        msg.className = 'text-[#39ff14]';
+                        msg.innerText = `[${new Date().toLocaleTimeString()}] Packet Sent via Wi-Fi: {T:${temp}, H:${hum}, P:${pres}, U:${uv}}`;
+                        
+                        if(logEl.children.length > 5) logEl.removeChild(logEl.firstChild);
+                        logEl.appendChild(msg);
+                    }, 1500);
+                }
+            },
+            'drone': {
+                title: "ESP32 Autonomous Drone",
+                sub: "ESP32 // FLIGHT CONTROLLER // PID LOOP",
+                html: `
+                    <div class="flex flex-col md:flex-row gap-8 w-full items-center justify-center">
+                        <div class="flex flex-col flex-1 w-full max-w-sm z-10">
+                            <div class="bg-[#1c1411]/90 border border-[#8c3a21] p-6 font-mono text-sm mb-6 shadow-[0_0_15px_rgba(140,58,33,0.2)]">
+                                <h4 class="text-cyan-300 font-bold mb-4 text-center border-b border-[#8c3a21]/50 pb-2">GPS TELEMETRY</h4>
+                                <div class="flex justify-between mb-2"><span class="text-slate-400">STATUS:</span><span id="drone-status" class="text-[#39ff14] font-bold">HOVERING</span></div>
+                                <div class="flex justify-between mb-2"><span class="text-slate-400">POS (X,Y):</span><span id="drone-pos" class="text-[#00f0ff] font-bold">0, 0</span></div>
+                                <div class="flex justify-between mb-6"><span class="text-slate-400">TARGET:</span><span id="drone-target" class="text-[#ef4444] font-bold">NONE</span></div>
+                                <div class="space-y-3 text-xs border-t border-[#8c3a21]/50 pt-4">
+                                    <div>
+                                        <div class="flex justify-between mb-1"><span class="text-slate-400">M1 (FRONT-L)</span><span id="m1-val">50%</span></div>
+                                        <div class="w-full bg-[#0c0a09] h-2 border border-[#8c3a21]/50"><div id="m1-bar" class="bg-[#00f0ff] h-full transition-all" style="width: 50%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-1"><span class="text-slate-400">M2 (FRONT-R)</span><span id="m2-val">50%</span></div>
+                                        <div class="w-full bg-[#0c0a09] h-2 border border-[#8c3a21]/50"><div id="m2-bar" class="bg-[#00f0ff] h-full transition-all" style="width: 50%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-1"><span class="text-slate-400">M3 (REAR-L)</span><span id="m3-val">50%</span></div>
+                                        <div class="w-full bg-[#0c0a09] h-2 border border-[#8c3a21]/50"><div id="m3-bar" class="bg-[#00f0ff] h-full transition-all" style="width: 50%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-1"><span class="text-slate-400">M4 (REAR-R)</span><span id="m4-val">50%</span></div>
+                                        <div class="w-full bg-[#0c0a09] h-2 border border-[#8c3a21]/50"><div id="m4-bar" class="bg-[#00f0ff] h-full transition-all" style="width: 50%"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-[#78716c] text-xs text-center border border-[#8c3a21]/50 p-2">> CLICK RADAR TO SET WAYPOINT</div>
+                        </div>
+                        <div class="relative w-[300px] h-[300px] shrink-0 bg-[#0c0a09] border-2 border-[#8c3a21]/50 overflow-hidden rounded-full shadow-[0_0_20px_rgba(0,240,255,0.1)] z-10 cursor-crosshair" id="drone-radar">
+                            <div class="absolute inset-0" style="background-image: linear-gradient(rgba(0,240,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,240,255,0.1) 1px, transparent 1px); background-size: 20px 20px;"></div>
+                            <div class="absolute top-1/2 w-full h-[1px] bg-[#00f0ff]/30"></div>
+                            <div class="absolute left-1/2 h-full w-[1px] bg-[#00f0ff]/30"></div>
+                            
+                            <div id="waypoint" class="absolute w-4 h-4 border-2 border-[#ef4444] rounded-full hidden transform -translate-x-1/2 -translate-y-1/2 transition-opacity">
+                                <div class="absolute inset-0 bg-[#ef4444]/30 rounded-full animate-ping"></div>
+                            </div>
+
+                            <div id="drone-blip" class="absolute w-3 h-3 bg-[#00f0ff] rounded-full shadow-[0_0_10px_#00f0ff] transform -translate-x-1/2 -translate-y-1/2" style="left: 150px; top: 150px;"></div>
+                        </div>
+                    </div>
+                `,
+                init: () => {
+                    let dX = 150; let dY = 150; // Drone Start Pos
+                    let tX = 150; let tY = 150; // Target Pos
+                    let moving = false;
+                    
+                    const radar = document.getElementById('drone-radar');
+                    const waypoint = document.getElementById('waypoint');
+                    const blip = document.getElementById('drone-blip');
+                    
+                    const posText = document.getElementById('drone-pos');
+                    const targetText = document.getElementById('drone-target');
+                    const statusText = document.getElementById('drone-status');
+                    
+                    const m1Bar = document.getElementById('m1-bar'); const m1Val = document.getElementById('m1-val');
+                    const m2Bar = document.getElementById('m2-bar'); const m2Val = document.getElementById('m2-val');
+                    const m3Bar = document.getElementById('m3-bar'); const m3Val = document.getElementById('m3-val');
+                    const m4Bar = document.getElementById('m4-bar'); const m4Val = document.getElementById('m4-val');
+
+                    radar.addEventListener('click', (e) => {
+                        const rect = radar.getBoundingClientRect();
+                        tX = e.clientX - rect.left;
+                        tY = e.clientY - rect.top;
+                        
+                        waypoint.style.left = tX + 'px';
+                        waypoint.style.top = tY + 'px';
+                        waypoint.classList.remove('hidden');
+                        
+                        targetText.innerText = `${Math.round(tX - 150)}, ${Math.round(150 - tY)}`;
+                        moving = true;
+                        statusText.innerText = "IN_TRANSIT";
+                        statusText.classList.replace('text-[#39ff14]', 'text-[#00f0ff]');
+                    });
+
+                    function droneLoopTick() {
+                        if (moving) {
+                            const dx = tX - dX;
+                            const dy = tY - dY;
+                            const dist = Math.sqrt(dx*dx + dy*dy);
+                            
+                            if (dist < 2) {
+                                moving = false;
+                                waypoint.classList.add('hidden');
+                                targetText.innerText = "NONE";
+                                statusText.innerText = "HOVERING";
+                                statusText.classList.replace('text-[#00f0ff]', 'text-[#39ff14]');
+                                
+                                // Reset motors to hover
+                                [m1Bar, m2Bar, m3Bar, m4Bar].forEach(b => b.style.width = '50%');
+                                [m1Val, m2Val, m3Val, m4Val].forEach(v => v.innerText = '50%');
+                            } else {
+                                // Move drone
+                                const speed = 1.5;
+                                dX += (dx / dist) * speed;
+                                dY += (dy / dist) * speed;
+                                blip.style.left = dX + 'px';
+                                blip.style.top = dY + 'px';
+                                
+                                posText.innerText = `${Math.round(dX - 150)}, ${Math.round(150 - dY)}`;
+
+                                // Calculate fake PWM based on pitch/roll needed to move
+                                // Moving up (North) -> dy is negative -> Rear motors high, Front low
+                                let pitchThrust = (dy / 150) * 30; // -30 to +30
+                                let rollThrust = (dx / 150) * 30;  // -30 to +30
+
+                                // M1: Front-Left, M2: Front-Right, M3: Rear-Left, M4: Rear-Right
+                                let m1 = 50 + pitchThrust + rollThrust;
+                                let m2 = 50 + pitchThrust - rollThrust;
+                                let m3 = 50 - pitchThrust + rollThrust;
+                                let m4 = 50 - pitchThrust - rollThrust;
+
+                                // Clamp and set UI
+                                [m1, m2, m3, m4] = [m1, m2, m3, m4].map(v => Math.max(10, Math.min(90, v)));
+                                
+                                m1Bar.style.width = m1 + '%'; m1Val.innerText = Math.round(m1) + '%';
+                                m2Bar.style.width = m2 + '%'; m2Val.innerText = Math.round(m2) + '%';
+                                m3Bar.style.width = m3 + '%'; m3Val.innerText = Math.round(m3) + '%';
+                                m4Bar.style.width = m4 + '%'; m4Val.innerText = Math.round(m4) + '%';
+                            }
+                        }
+                        droneLoop = requestAnimationFrame(droneLoopTick);
+                    }
+                    droneLoopTick();
+                }
+            }
+        };
+
+        function openArtifact(id) {
+            const data = artifacts[id];
+            modalTitle.innerText = data.title;
+            modalSub.innerText = data.sub;
+            artifactDisplay.innerHTML = data.html;
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'hidden';
+            if(data.init) data.init();
+        }
+
+        function closeArtifact() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'auto';
+            if(activeSimLoop) { cancelAnimationFrame(activeSimLoop); activeSimLoop = null; }
+            if(droneLoop) { cancelAnimationFrame(droneLoop); droneLoop = null; }
+            if(window._currentWeatherInterval) { clearInterval(window._currentWeatherInterval); window._currentWeatherInterval = null; }
+            setTimeout(() => { artifactDisplay.innerHTML = ''; }, 500);
+        }
+    </script>
+</body>
+</html>
