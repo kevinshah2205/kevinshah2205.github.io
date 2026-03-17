@@ -152,10 +152,10 @@
                     <h2 class="text-5xl md:text-6xl font-black text-white mb-4 tracking-tight">About Me</h2>
                     <p class="text-[#78716c] text-lg mb-8">Insights into my technical background and what drives my engineering pursuits.</p>
                     
-                    <div class="w-full max-w-[260px] aspect-[4/5] bg-gradient-to-br from-[#1c1411] to-[#0c0a09] border-2 border-[#8c3a21] relative flex items-center justify-center group overflow-hidden shadow-[0_0_30px_rgba(140,58,33,0.15)] clip-corner mx-auto lg:mx-0">
-                        <div class="absolute inset-0 bg-[#00f0ff] opacity-0 group-hover:opacity-5 transition-opacity duration-500"></div>
-                        <span class="text-6xl font-black text-[#8c3a21] group-hover:text-[#00f0ff] transition-colors duration-500 drop-shadow-lg">KS</span>
-                        </div>
+                    <div class="w-full max-w-[260px] aspect-[4/5] bg-[#1c1411] border-2 border-[#8c3a21] relative flex items-center justify-center group overflow-hidden shadow-[0_0_30px_rgba(140,58,33,0.15)] clip-corner mx-auto lg:mx-0">
+                        <img src="https://i.ibb.co/k2rW0mDn/trial-1.jpg" alt="Kevin Shah" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 z-0">
+                        <div class="absolute inset-0 bg-[#00f0ff] opacity-0 group-hover:opacity-20 transition-opacity duration-500 z-10"></div>
+                    </div>
                 </div>
 
                 <div class="lg:col-span-7 reveal" style="transition-delay: 0.2s;">
@@ -566,7 +566,6 @@
     </div>
 
     <script>
-        // --- SCROLL REVEAL LOGIC ---
         function initScrollReveal() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
@@ -576,7 +575,6 @@
         
         initScrollReveal();
 
-        // --- ALIEN TEXT DECRYPTION EFFECT ---
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
         document.querySelectorAll('.decrypt-text').forEach(el => {
             el.addEventListener('mouseover', event => {
@@ -596,7 +594,6 @@
             });
         });
 
-        // --- ARTIFACT MODAL LOGIC ---
         const modal = document.getElementById('artifact-modal');
         const modalTitle = document.getElementById('modal-title');
         const modalSub = document.getElementById('modal-subtitle');
@@ -1133,11 +1130,9 @@
                                 statusText.innerText = "HOVERING";
                                 statusText.classList.replace('text-[#00f0ff]', 'text-[#39ff14]');
                                 
-                                // Reset motors to hover
                                 [m1Bar, m2Bar, m3Bar, m4Bar].forEach(b => b.style.width = '50%');
                                 [m1Val, m2Val, m3Val, m4Val].forEach(v => v.innerText = '50%');
                             } else {
-                                // Move drone
                                 const speed = 1.5;
                                 dX += (dx / dist) * speed;
                                 dY += (dy / dist) * speed;
@@ -1146,18 +1141,14 @@
                                 
                                 posText.innerText = `${Math.round(dX - 150)}, ${Math.round(150 - dY)}`;
 
-                                // Calculate fake PWM based on pitch/roll needed to move
-                                // Moving up (North) -> dy is negative -> Rear motors high, Front low
                                 let pitchThrust = (dy / 150) * 30; // -30 to +30
                                 let rollThrust = (dx / 150) * 30;  // -30 to +30
 
-                                // M1: Front-Left, M2: Front-Right, M3: Rear-Left, M4: Rear-Right
                                 let m1 = 50 + pitchThrust + rollThrust;
                                 let m2 = 50 + pitchThrust - rollThrust;
                                 let m3 = 50 - pitchThrust + rollThrust;
                                 let m4 = 50 - pitchThrust - rollThrust;
 
-                                // Clamp and set UI
                                 [m1, m2, m3, m4] = [m1, m2, m3, m4].map(v => Math.max(10, Math.min(90, v)));
                                 
                                 m1Bar.style.width = m1 + '%'; m1Val.innerText = Math.round(m1) + '%';
